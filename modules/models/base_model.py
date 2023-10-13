@@ -148,6 +148,8 @@ class ModelType(Enum):
 
     @classmethod
     def get_type(cls, model_name: str):
+        if os.environ.get('GET_MODEL_FROM_OPENAI_API', 'false') == 'true':
+            return ModelType.OpenAI
         model_type = None
         model_name_lower = model_name.lower()
         if "gpt" in model_name_lower:

@@ -105,6 +105,14 @@ if os.environ.get('HIDE_LOCAL_MODELS', 'false') == 'true':
 else:
     MODELS = ONLINE_MODELS + LOCAL_MODELS
 
+if os.environ.get('GET_MODEL_FROM_OPENAI_API', 'false') == 'true':
+    api_base = os.environ['OPENAI_API_BASE']
+    from urllib.request import urlopen
+    import json
+
+    json_response = json.loads(urlopen(api_base + '/v1/models').read().decode('utf-8'))
+    MODELS = [model['id'] for model in json_response['data']]
+
 DEFAULT_MODEL = 0
 
 os.makedirs("models", exist_ok=True)
