@@ -52,6 +52,7 @@ check_update = config.get("check_update", True)
 show_api_billing = config.get("show_api_billing", False)
 show_api_billing = bool(os.environ.get("SHOW_API_BILLING", show_api_billing))
 chat_name_method_index = config.get("chat_name_method_index", 2)
+chat_name_method_index = int(os.environ.get("CHAT_NAME_METHOD_INDEX", chat_name_method_index))
 
 if os.path.exists("api_key.txt"):
     logging.info("检测到api_key.txt文件，正在进行迁移...")
@@ -291,3 +292,6 @@ if user_avatar == "" or user_avatar == "none" or user_avatar is None:
     user_avatar = None
 elif user_avatar == "default":
     user_avatar = "web_assets/user.png"
+
+if os.environ.get('NO_AVATAR', 'false') == 'true':
+    bot_avatar = user_avatar = None

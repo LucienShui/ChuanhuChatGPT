@@ -373,6 +373,18 @@ with gr.Blocks(theme=small_and_beautiful_theme) as demo:
                         use_streaming_checkbox = gr.Checkbox(
                             label=i18n("实时传输回答"), value=True, visible=ENABLE_STREAMING_OPTION, elem_classes="switch-checkbox"
                         )
+                    name_chat_method = gr.Dropdown(
+                        label=i18n("对话命名方式"),
+                        choices=HISTORY_NAME_METHODS,
+                        multiselect=False,
+                        interactive=True,
+                        value=HISTORY_NAME_METHODS[chat_name_method_index],
+                        visible=False
+                    )
+                    single_turn_checkbox = gr.Checkbox(label=i18n(
+                        "单轮对话"), value=False, elem_classes="switch-checkbox", elem_id="gr-single-session-cb",
+                        visible=False)
+            """
                         name_chat_method = gr.Dropdown(
                             label=i18n("对话命名方式"),
                             choices=HISTORY_NAME_METHODS,
@@ -455,6 +467,7 @@ with gr.Blocks(theme=small_and_beautiful_theme) as demo:
                                 i18n("取消所有任务"))
                             add_to_models_btn = gr.Button(
                                 i18n("添加训练好的模型到模型列表"), interactive=False)
+            """
 
             with gr.Box(elem_id="web-config", visible=False):
                 gr.HTML(get_html('web_config.html').format(
@@ -700,6 +713,7 @@ with gr.Blocks(theme=small_and_beautiful_theme) as demo:
         [historySelectList]
     )
 
+    """
     # Train
     dataset_selection.upload(handle_dataset_selection, dataset_selection, [
                              dataset_preview_json, upload_to_openai_btn, openai_train_status])
@@ -719,6 +733,7 @@ with gr.Blocks(theme=small_and_beautiful_theme) as demo:
                             model_select_dropdown, openai_train_status], show_progress=True)
     openai_cancel_all_jobs_btn.click(
         cancel_all_jobs, [], [openai_train_status], show_progress=True)
+    """
 
     # Advanced
     max_context_length_slider.change(
@@ -741,9 +756,11 @@ with gr.Blocks(theme=small_and_beautiful_theme) as demo:
     user_identifier_txt.change(set_user_identifier, [
                                current_model, user_identifier_txt], None)
 
+    """
     default_btn.click(
         reset_default, [], [apihostTxt, proxyTxt, status_display], show_progress=True
     )
+    """
     # changeAPIURLBtn.click(
     #     change_api_host,
     #     [apihostTxt],
